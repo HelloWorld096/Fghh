@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Code Storage</title>
-<script src="script.js"></script>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Code Storage</title>
+  <link rel="stylesheet" href="style.css"> </head>
 <body>
-  <input type="text" id="codeInput" placeholder="Enter a 6-digit code">
-  <button onclick="storeCode()">Store Code</button>
-  <button onclick="getCode()">Get Code</button>
-  <p id="message"></p>
-</body>
+  <h1>Secure Code Storage</h1>
+  <p>Store and access your confidential codes.</p>
+
+  <div class="code-input">
+    <input type="text" id="codeInput" placeholder="Enter a 6-digit code">
+    <button onclick="storeCode()">Store Code</button>
+  </div>
+
+  <div class="code-output">
+    <p id="message"></p>
+    <p>Available codes: <span id="codeCount">0</span></p>
+    <button onclick="getCode()">Get Code</button>
+  </div>
+
+  <script src="script.js"></script> </body>
 </html>
+
