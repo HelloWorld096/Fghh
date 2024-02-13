@@ -1,5 +1,6 @@
 // Retrieve stored codes from local storage, handling potential errors
-const storedCodes = localStorage.getItem('codes') ? JSON.parse(localStorage.getItem('codes')) : [];
+const storedCodes = JSON.parse(localStorage.getItem('codes')) || [];
+updateCodeCount();
 
 function storeCode() {
   const code = document.getElementById('codeInput').value.trim();
@@ -17,6 +18,7 @@ function storeCode() {
   localStorage.setItem('codes', JSON.stringify(storedCodes));
   displayMessage('Code stored successfully.');
   document.getElementById('codeInput').value = '';
+  updateCodeCount();
 }
 
 function getCode() {
@@ -26,9 +28,15 @@ function getCode() {
   }
 
   const code = storedCodes.splice(0, 1)[0]; // Get and remove the first code
+  localStorage.setItem('codes', JSON.stringify(storedCodes));
   displayMessage('Your code: ' + code);
+  updateCodeCount();
 }
 
 function displayMessage(message) {
   document.getElementById('message').textContent = message;
+}
+
+function updateCodeCount() {
+  document.getElementById('codeCount').textContent = storedCodes.length;
 }
