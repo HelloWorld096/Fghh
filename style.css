@@ -1,14 +1,19 @@
 body {
   font-family: sans-serif;
-  text-align: center;
+  text-align: center; /* Use center alignment for header */
   margin: 2rem;
 }
 
-.code-input,
-.code-output {
-  display: flex;
-  justify-content: space-between;
+header {
+  text-align: center; /* Consistent alignment */
+}
+
+section {
   margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 input[type="text"] {
@@ -30,6 +35,7 @@ button {
   font-weight: bold;
   color: green; /* Success */
   color: red; /* Error */
+  text-align: center; /* Consistent alignment */
 }
 
 #codeCount {
@@ -44,3 +50,5 @@ button {
   padding: 0.5rem;
   text-align: left;
 }
+
+/* Add more styles as desired */
