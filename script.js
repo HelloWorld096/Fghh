@@ -9,12 +9,13 @@ function storeCode() {
     return;
   }
 
-  if (storedCodes.includes(code)) {
+  if (storedCodes.some((c) => c.code === code)) {
     displayMessage('Code already exists.');
     return;
   }
 
-  storedCodes.push(code);
+  const dateAdded = new Date().toISOString(); // Store current date/time
+  storedCodes.push({ code: code, dateAdded: dateAdded });
   localStorage.setItem('codes', JSON.stringify(storedCodes));
   displayMessage('Code stored successfully.');
   document.getElementById('codeInput').value = '';
@@ -27,10 +28,51 @@ function getCode() {
     return;
   }
 
-  const code = storedCodes.splice(0, 1)[0]; // Get and remove the first code
+  const code = storedCodes.shift(); // Get and remove the first code
   localStorage.setItem('codes', JSON.stringify(storedCodes));
-  displayMessage('Your code: ' + code);
-  updateCodeCount(); // Update count after deletion
+  displayMessage('Your code: ' + code.code);
+  updateCodeCount();
+}
+
+function showDatabase() {
+  const database = document.getElementById('database');
+  database.style.display = 'block';
+
+  const codes = JSON.parse(localStorage.getItem('codes')) || [];
+  const tableBody = document.getElementById('codesTable');
+  tableBody.innerHTML = '';
+
+  codes.forEach((code) => {
+    const dateAdded = new Date(code.dateAdded).toLocaleString(); // Format date
+    const tableRow = document.createElement('tr');
+    tableRow.innerHTML = `
+      <td>${code.code}</td>
+      <td>${dateAdded}</td>
+      <td><button onclick="deleteCode('${code.code}')">Delete</button></td>
+    `;
+    tableBody.appendChild(tableRow);
+  });
+}
+
+function deleteCode(code) {
+  const codes = JSON.parse(localStorage.getItem('codes'));
+  const index = codes.findIndex((c) => c.code === code);
+  if (index !== -1) {
+    codes.splice(index, 1);
+    localStorage.setItem('codes', JSON.stringify(codes));
+    showDatabase(); // Refresh the database view
+    updateCodeCount();
+    displayMessage('Code deleted successfully.');
+  } else {
+    displayMessage('Code not found.');
+  }
+}
+
+function deleteAllCodes() {
+  localStorage.removeItem('codes');
+  showDatabase(); // Clear the table
+  updateCodeCount();
+  displayMessage('All codes deleted.');
 }
 
 function displayMessage(message) {
