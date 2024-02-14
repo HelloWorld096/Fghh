@@ -7,22 +7,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Secure Code Storage</h1>
-  <p>Store and access your confidential codes.</p>
+  <header>
+    <h1>Secure Code Storage</h1>
+    <p>Store and securely access your confidential codes.</p>
+  </header>
 
-  <div class="code-input">
+  <section class="code-input-container">
     <input type="text" id="codeInput" placeholder="Enter a 6-digit code">
     <button onclick="storeCode()">Store Code</button>
-  </div>
+  </section>
 
-  <div class="code-output">
+  <section class="code-output-container">
     <p id="message"></p>
     <p>Available codes: <span id="codeCount">0</span></p>
     <button onclick="getCode()">Get Code</button>
     <button onclick="showDatabase()">View Database</button>
-  </div>
+  </section>
 
-  <div id="database" style="display: none;">
+  <section id="database" style="display: none;">
     <h2>Stored Codes</h2>
     <table>
       <thead>
@@ -35,7 +37,7 @@
       <tbody id="codesTable"></tbody>
     </table>
     <button onclick="deleteAllCodes()">Delete All Codes</button>
-  </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
