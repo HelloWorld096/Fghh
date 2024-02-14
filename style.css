@@ -35,3 +35,12 @@ button {
 #codeCount {
   font-weight: bold;
 }
+
+#database table {
+  width: 100%;
+}
+
+#database td {
+  padding: 0.5rem;
+  text-align: left;
+}
