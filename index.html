@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure Code Storage</title>
+  <title>Secure Code Vault</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Secure Code Storage</h1>
-    <p>Store and securely access your confidential codes.</p>
+    <h1 class="logo">Secure Code Vault</h1>
+    <button id="showDatabase" class="admin-button">Manage Codes</button>
   </header>
 
   <section class="code-input-container">
-    <input type="text" id="codeInput" placeholder="Enter a 6-digit code">
+    <span>Enter a 6-digit code:</span>
+    <input type="number" id="codeInput" min="100000" max="999999" maxlength="6" placeholder="000000">
     <button onclick="storeCode()">Store Code</button>
   </section>
 
@@ -21,10 +22,9 @@
     <p id="message"></p>
     <p>Available codes: <span id="codeCount">0</span></p>
     <button onclick="getCode()">Get Code</button>
-    <button onclick="showDatabase()">View Database</button>
   </section>
 
-  <section id="database" style="display: none;">
+  <div id="database" style="display: none;">
     <h2>Stored Codes</h2>
     <table>
       <thead>
@@ -37,7 +37,8 @@
       <tbody id="codesTable"></tbody>
     </table>
     <button onclick="deleteAllCodes()">Delete All Codes</button>
-  </section>
+    <button onclick="deleteSelectedCodes()">Delete Selected</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
