@@ -34,6 +34,7 @@ function getCode() {
   displayCodeButton(code);
 }
 
+
 function showDatabase() {
   const database = document.getElementById('database');
   const showDatabaseButton = document.getElementById('showDatabase');
