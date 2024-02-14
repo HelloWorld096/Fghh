@@ -30,7 +30,7 @@ function getCode() {
   const code = storedCodes.splice(0, 1)[0]; // Get and remove the first code
   localStorage.setItem('codes', JSON.stringify(storedCodes));
   displayMessage('Your code: ' + code);
-  updateCodeCount();
+  updateCodeCount(); // Update count after deletion
 }
 
 function displayMessage(message) {
