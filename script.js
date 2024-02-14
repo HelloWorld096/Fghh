@@ -107,13 +107,15 @@ function formatDate(dateString) {
 function displayCodeButton(code) {
   const codeOutputContainer = document.getElementById('codeOutputContainer');
   codeOutputContainer.innerHTML = `
-    <button id="codeButton">${code}</button>
+    <p>Your code: <span id="code">${code}</span></p>
+    <button id="copyButton">Copy Code</button>
   `;
-  const codeButton = document.getElementById('codeButton');
-  codeButton.addEventListener('click', () => {
+  const copyButton = document.getElementById('copyButton');
+  copyButton.addEventListener('click', () => {
     copyToClipboard(code);
   });
 }
+
 
 function copyToClipboard(text) {
   const el = document.createElement('textarea');
