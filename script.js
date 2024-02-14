@@ -3,6 +3,7 @@ let storedCodes = JSON.parse(localStorage.getItem('codes')) || [];
 updateCodeCount();
 
 function storeCode() {
+  confunction storeCode() {
   const code = document.getElementById('codeInput').value.trim();
 
   // Validate code input:
@@ -23,6 +24,7 @@ function storeCode() {
   document.getElementById('codeInput').value = '';
   updateCodeCount();
 }
+
 
 function getCode() {
   if (storedCodes.length === 0) {
