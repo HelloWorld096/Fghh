@@ -111,12 +111,13 @@ function populateDatabaseTable() {
     const dateAdded = formatDate(code.dateAdded); // Format date
     const tableRow = document.createElement('tr');
     tableRow.innerHTML = `
-      <td><span class="math-inline">\{code\.code\}</td\>
-<td\></span>{dateAdded}</td>
+      <td>${code.code}</td>
+      <td>${dateAdded}</td>
       <td>
-        <input type="checkbox" id="code-<span class="math-inline">\{code\.code\}" /\>
-<button onclick\="deleteCode\('</span>{code.code}')">Delete</button>
+        <input type="checkbox" id="code-${code.code}" />
+        <button onclick="deleteCode('${code.code}')">Delete</button>
       </td>
     `;
-
-  
+    tableBody.appendChild(tableRow);
+  });
+}
