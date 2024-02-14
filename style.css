@@ -1,22 +1,44 @@
 body {
   font-family: sans-serif;
-  text-align: center; /* Use center alignment for header */
   margin: 2rem;
+  background-color: #f2f2f2;
 }
 
 header {
-  text-align: center; /* Consistent alignment */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #3498db;
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.admin-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
 }
 
 section {
-  margin-bottom: 1rem;
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
-input[type="text"] {
+.code-input-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#codeInput {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -24,7 +46,7 @@ input[type="text"] {
 
 button {
   padding: 0.5rem 1rem;
-  background-color: #3498db; /* Modify as desired */
+  background-color: #3498db;
   color: white;
   border: none;
   border-radius: 4px;
@@ -35,7 +57,7 @@ button {
   font-weight: bold;
   color: green; /* Success */
   color: red; /* Error */
-  text-align: center; /* Consistent alignment */
+  text-align: center;
 }
 
 #codeCount {
@@ -51,4 +73,4 @@ button {
   text-align: left;
 }
 
-/* Add more styles as desired */
+/* Adjust styles as desired */
