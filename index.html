@@ -9,7 +9,7 @@
 <body>
   <header>
     <h1 class="logo">Secure Code Vault</h1>
-    <button id="showDatabase" class="admin-button">Manage Codes</button>
+    <button id="showDatabase" class="admin-button" onclick="showDatabase()">Manage Codes</button>
   </header>
 
   <section class="code-input-container">
@@ -18,10 +18,8 @@
     <button onclick="storeCode()">Store Code</button>
   </section>
 
-  <section class="code-output-container">
-    <p id="message"></p>
-    <p>Available codes: <span id="codeCount">0</span></p>
-    <button onclick="getCode()">Get Code</button>
+  <section class="code-output-container" id="codeOutputContainer">
+    <!-- Code will be displayed here -->
   </section>
 
   <div id="database" style="display: none;">
@@ -37,7 +35,6 @@
       <tbody id="codesTable"></tbody>
     </table>
     <button onclick="deleteAllCodes()">Delete All Codes</button>
-    <button onclick="deleteSelectedCodes()">Delete Selected</button>
   </div>
 
   <script src="script.js"></script>
