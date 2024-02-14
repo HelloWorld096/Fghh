@@ -19,6 +19,22 @@
     <p id="message"></p>
     <p>Available codes: <span id="codeCount">0</span></p>
     <button onclick="getCode()">Get Code</button>
+    <button onclick="showDatabase()">View Database</button>
+  </div>
+
+  <div id="database" style="display: none;">
+    <h2>Stored Codes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Date Added</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="codesTable"></tbody>
+    </table>
+    <button onclick="deleteAllCodes()">Delete All Codes</button>
   </div>
 
   <script src="script.js"></script>
