@@ -1,5 +1,5 @@
 // Retrieve stored codes from local storage, handling potential errors
-const storedCodes = JSON.parse(localStorage.getItem('codes')) || [];
+let storedCodes = JSON.parse(localStorage.getItem('codes')) || [];
 updateCodeCount();
 
 function storeCode() {
@@ -30,10 +30,8 @@ function getCode() {
     return;
   }
 
-  const code = storedCodes.shift(); // Get and remove the first code
-  localStorage.setItem('codes', JSON.stringify(storedCodes));
-  displayMessage('Your code: ' + code.code);
-  updateCodeCount();
+  const code = storedCodes[0].code;
+  displayCodeButton(code);
 }
 
 function showDatabase() {
@@ -53,33 +51,19 @@ function showDatabase() {
 }
 
 function deleteCode(code) {
-  const index = storedCodes.findIndex((c) => c.code === code);
-  if (index !== -1) {
-    storedCodes.splice(index, 1);
-    localStorage.setItem('codes', JSON.stringify(storedCodes));
-    populateDatabaseTable();
-    updateCodeCount();
-    displayMessage('Code deleted successfully.');
-  } else {
-    displayMessage('Code not found.');
-  }
+  storedCodes = storedCodes.filter((c) => c.code !== code);
+  localStorage.setItem('codes', JSON.stringify(storedCodes));
+  populateDatabaseTable();
+  updateCodeCount();
+  displayMessage('Code deleted successfully.');
 }
 
 function deleteAllCodes() {
-  storedCodes.length = 0;
+  storedCodes = [];
   localStorage.setItem('codes', JSON.stringify(storedCodes));
   populateDatabaseTable();
   updateCodeCount();
   displayMessage('All codes deleted successfully.');
-}
-
-function deleteSelectedCodes() {
-  const selectedCodes = document.querySelectorAll('tbody input[type="checkbox"]:checked');
-  const codesToDelete = [];
-  selectedCodes.forEach((checkbox) => {
-    codesToDelete.push(checkbox.id.substring(5)); // Extract code from ID
-  });
-  deleteCodes(codesToDelete);
 }
 
 function displayMessage(message) {
@@ -96,28 +80,46 @@ function updateCodeCount() {
   codeCountElement.textContent = storedCodes.length;
 }
 
-// Function to format date for display
+function populateDatabaseTable() {
+  const tableBody = document.getElementById('codesTable');
+  tableBody.innerHTML = '';
+
+  storedCodes.forEach((codeObj) => {
+    const dateAdded = formatDate(codeObj.dateAdded);
+    const tableRow = document.createElement('tr');
+    tableRow.innerHTML = `
+      <td>${codeObj.code}</td>
+      <td>${dateAdded}</td>
+      <td>
+        <button onclick="deleteCode('${codeObj.code}')">Delete</button>
+      </td>
+    `;
+    tableBody.appendChild(tableRow);
+  });
+}
+
 function formatDate(dateString) {
   const date = new Date(dateString);
   return date.toLocaleString(); // Format date according to user's locale
 }
 
-// Function to add checkboxes and delete functionality to database table
-function populateDatabaseTable() {
-  const tableBody = document.getElementById('codesTable');
-  tableBody.innerHTML = '';
-
-  storedCodes.forEach((code) => {
-    const dateAdded = formatDate(code.dateAdded); // Format date
-    const tableRow = document.createElement('tr');
-    tableRow.innerHTML = `
-      <td>${code.code}</td>
-      <td>${dateAdded}</td>
-      <td>
-        <input type="checkbox" id="code-${code.code}" />
-        <button onclick="deleteCode('${code.code}')">Delete</button>
-      </td>
-    `;
-    tableBody.appendChild(tableRow);
+function displayCodeButton(code) {
+  const codeOutputContainer = document.getElementById('codeOutputContainer');
+  codeOutputContainer.innerHTML = `
+    <button id="codeButton">${code}</button>
+  `;
+  const codeButton = document.getElementById('codeButton');
+  codeButton.addEventListener('click', () => {
+    copyToClipboard(code);
   });
+}
+
+function copyToClipboard(text) {
+  const el = document.createElement('textarea');
+  el.value = text;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  displayMessage('Code copied to clipboard.');
 }
