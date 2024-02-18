@@ -1,81 +1,67 @@
-// Retrieve stored codes from local storage, handling potential errors
 let storedCodes = JSON.parse(localStorage.getItem('codes')) || [];
-updateCodeCount();
 
 function storeCode() {
-  confunction storeCode() {
   const code = document.getElementById('codeInput').value.trim();
 
-  // Validate code input:
   if (code.length !== 6 || isNaN(code)) {
-    displayMessage('Please enter a valid 6-digit code.');
+    displayPopupMessage('Please enter a valid 6-digit code.', 'red');
     return;
   }
 
   if (storedCodes.some((c) => c.code === code)) {
-    displayMessage('Code already exists.');
+    displayPopupMessage('Code already exists.', 'red');
     return;
   }
 
-  const dateAdded = new Date().toISOString(); // Store current date/time
+  const dateAdded = new Date().toISOString();
   storedCodes.push({ code: code, dateAdded: dateAdded });
   localStorage.setItem('codes', JSON.stringify(storedCodes));
-  displayMessage('Code stored successfully.');
+  displayPopupMessage('Code stored successfully.', 'green');
   document.getElementById('codeInput').value = '';
   updateCodeCount();
 }
 
-
 function getCode() {
   if (storedCodes.length === 0) {
-    displayMessage('No codes available.');
+    displayPopupMessage('No codes available.', 'red');
     return;
   }
 
-  const code = storedCodes[0].code;
-  displayCodeButton(code);
-}
+  const randomIndex = Math.floor(Math.random() * storedCodes.length);
+  const code = storedCodes[randomIndex];
+  storedCodes.splice(randomIndex, 1);
 
-
-function showDatabase() {
-  const database = document.getElementById('database');
-  const showDatabaseButton = document.getElementById('showDatabase');
-
-  // Simulate authentication (replace with your actual authentication logic)
-  const isAuthenticated = true; // Temporary authentication
-
-  if (isAuthenticated) {
-    database.style.display = database.style.display === 'none' ? 'block' : 'none';
-    showDatabaseButton.textContent = database.style.display === 'block' ? 'Close Codes' : 'Manage Codes';
-    populateDatabaseTable();
-  } else {
-    displayMessage('You are not authorized to view codes.');
-  }
-}
-
-function deleteCode(code) {
-  storedCodes = storedCodes.filter((c) => c.code !== code);
-  localStorage.setItem('codes', JSON.stringify(storedCodes));
-  populateDatabaseTable();
   updateCodeCount();
-  displayMessage('Code deleted successfully.');
-}
 
-function deleteAllCodes() {
-  storedCodes = [];
+  const separateCodeDisplay = document.getElementById('separateCodeDisplay');
+  separateCodeDisplay.innerHTML = `<p class="large-code anton-regular" style="text-align: center; margin: 0; padding: 0;" onclick="copyCode('${code.code}')">${code.code}</p>`;
+
   localStorage.setItem('codes', JSON.stringify(storedCodes));
-  populateDatabaseTable();
-  updateCodeCount();
-  displayMessage('All codes deleted successfully.');
 }
 
-function displayMessage(message) {
-  const messageElement = document.getElementById('message');
-  messageElement.textContent = message;
-  messageElement.style.display = 'block';
+function copyCode(code) {
+  const tempInput = document.createElement('input');
+  tempInput.value = code;
+  document.body.appendChild(tempInput);
+
+  tempInput.select();
+  document.execCommand('copy');
+
+  document.body.removeChild(tempInput);
+
+  displayPopupMessage('Code copied to clipboard.', 'green');
+}
+
+function displayPopupMessage(message, color = 'white') {
+  const popup = document.createElement('div');
+  popup.className = 'popup';
+  popup.textContent = message;
+  popup.style.color = color;
+  document.body.appendChild(popup);
+  
   setTimeout(() => {
-    messageElement.style.display = 'none';
-  }, 3000); // Hide message after 3 seconds
+    document.body.removeChild(popup);
+  }, 3000);
 }
 
 function updateCodeCount() {
@@ -83,9 +69,17 @@ function updateCodeCount() {
   codeCountElement.textContent = storedCodes.length;
 }
 
-function populateDatabaseTable() {
-  const tableBody = document.getElementById('codesTable');
-  tableBody.innerHTML = '';
+function deleteAllCodes() {
+  localStorage.removeItem('codes');
+  storedCodes = [];
+  populateModalTable();
+  updateCodeCount();
+  displayPopupMessage('All codes deleted successfully.', 'green');
+}
+
+function populateModalTable() {
+  const modalTableBody = document.getElementById('modalCodesTable');
+  modalTableBody.innerHTML = '';
 
   storedCodes.forEach((codeObj) => {
     const dateAdded = formatDate(codeObj.dateAdded);
@@ -97,34 +91,38 @@ function populateDatabaseTable() {
         <button onclick="deleteCode('${codeObj.code}')">Delete</button>
       </td>
     `;
-    tableBody.appendChild(tableRow);
+    modalTableBody.appendChild(tableRow);
   });
 }
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-  return date.toLocaleString(); // Format date according to user's locale
+  return date.toLocaleString();
 }
 
-function displayCodeButton(code) {
-  const codeOutputContainer = document.getElementById('codeOutputContainer');
-  codeOutputContainer.innerHTML = `
-    <p>Your code: <span id="code">${code}</span></p>
-    <button id="copyButton">Copy Code</button>
-  `;
-  const copyButton = document.getElementById('copyButton');
-  copyButton.addEventListener('click', () => {
-    copyToClipboard(code);
+
+function displayStoredCodes() {
+  const modalTableBody = document.getElementById('modalCodesTable');
+  modalTableBody.innerHTML = '';
+
+  storedCodes.forEach((codeObj) => {
+    const dateAdded = formatDate(codeObj.dateAdded);
+    const tableRow = document.createElement('tr');
+    tableRow.innerHTML = `
+      <td>${codeObj.code}</td>
+      <td>${dateAdded}</td>
+      <td>
+        <button onclick="deleteCode('${codeObj.code}')">Delete</button>
+      </td>
+    `;
+    modalTableBody.appendChild(tableRow);
   });
 }
 
-
-function copyToClipboard(text) {
-  const el = document.createElement('textarea');
-  el.value = text;
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
-  displayMessage('Code copied to clipboard.');
-}
+document.getElementById('showPopupButton').addEventListener('click', function() {
+  displayStoredCodes();
+  showPopup();
+});
+document.addEventListener('DOMContentLoaded', function() {
+  updateCodeCount();
+});
