@@ -1,42 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Secure Code Vault</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Black+Ops+One&family=Saira+Condensed:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <header>
-    <h1 class="logo">Secure Code Vault</h1>
-    <button id="showDatabase" class="admin-button" onclick="showDatabase()">Manage Codes</button>
+    <h1 class="black-ops-one-regular" style="font-family: 'Black Ops One', sans-serif; display: inline-block; margin-right: 10px;">Secure Code Vault</h1>
+    <span class="divider" style="display: inline-block; width: 4px; height: 100px; background-color: #f5f5f5; margin-right: 10px;"></span>
+    <a id="showPopupButton" href="#" class="admin-button" style="text-decoration: none;display: flex; align-items: center;">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <i class="fas fa-database" style="font-size: 24px; margin-right: 5px;"></i>
+        <span class="database-font" style="font-family: 'Saira Condensed', sans-serif; align-items: flex-end;">Database</span>
+      </div>
+    </a>
   </header>
+  
+  
 
   <section class="code-input-container">
-    <span>Enter a 6-digit code:</span>
-    <input type="number" id="codeInput" min="100000" max="999999" maxlength="6" placeholder="000000">
-    <button onclick="storeCode()">Store Code</button>
+    <span>Add Code :</span>
+    <input type="number" id="codeInput" min="100000" max="999999" maxlength="6" placeholder="_ _ _ _ _ _">
+    <button onclick="storeCode()">Save</button>
   </section>
 
   <section class="code-output-container" id="codeOutputContainer">
-    <!-- Code output will be displayed here -->
+    <p>Available codes: <span id="codeCount">0</span></p>
+    <p id="message"></p>
+    <div id="codeButtonContainer"></div>
+    <button onclick="getCode()">Get Code</button>
   </section>
 
-  <div id="database" style="display: none;">
-    <h2>Stored Codes</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Code</th>
-          <th>Date Added</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="codesTable"></tbody>
-    </table>
-    <button onclick="deleteAllCodes()">Delete All Codes</button>
+  <section class="separate-code-container">
+    <div id="separateCodeDisplay"></div>
+    <p id="separateMessage" class="error-message"></p> 
+  </section>
+
+  <!-- Popup window -->
+  <div id="popupContainer" class="popup-container" onclick="closePopup()">
+    <div class="popup-content" onclick="event.stopPropagation()">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <h2>Stored Codes</h2>
+      <table id="modalCodesTable"></table>
+      <button onclick="deleteAllCodes()">Delete All Codes</button>
+    </div>
   </div>
 
-  <script src="script.js"></script>
+  <div id="popupMessage" class="popup-message"></div>
+
+
+ <script src="script.js"></script>
+  <script>
+    function showPopup() {
+      document.getElementById('popupContainer').style.display = 'block';
+      // Populate the popup with stored codes when it's shown
+      displayStoredCodes();
+    }
+
+    function closePopup() {
+      document.getElementById('popupContainer').style.display = 'none';
+    }
+
+    document.getElementById('showPopupButton').addEventListener('click', showPopup);
+  </script>
 </body>
 </html>
