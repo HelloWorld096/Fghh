@@ -1,6 +1,81 @@
 body {
   font-family: sans-serif;
   margin: 2rem;
+  background-color: #d4d4d4;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #3498db;
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.admin-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+section {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.code-input-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#codeInput {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+<!-- #message {
+  font-weight: bold;
+  color: green; /* Success */
+  color: red; /* Error */
+  text-align: center;
+}
+-->
+#codeCount {
+  font-weight: bold;
+}
+
+#database table {
+  width: 100%;
+}
+
+#database td {
+  padding: 0.5rem;
+  text-align: left;
+}
+/* Your existing styles */
+body {
+  font-family: sans-serif;
+  margin: 2rem;
   background-color: #f2f2f2;
 }
 
@@ -64,11 +139,186 @@ button {
   font-weight: bold;
 }
 
-#database table {
-  width: 100%;
+/* Modal styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black with opacity */
 }
 
-#database td {
-  padding: 0.5rem;
-  text-align: left;
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
 }
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* Add styling for the separate code display */
+.separate-code-container {
+  margin-top: 8px;
+}
+
+.separate-code-container p {
+  font-size: 5em;
+  font-weight: bold;
+}
+
+.separate-code-container p.large-code {
+  font-size: 2em;
+  color: #9B0600 ; /* Change the color of the code */
+}
+/* Add styling for the separate code display */
+.separate-code-container {
+  margin-top: 2px;
+}
+
+.separate-code-container p {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.separate-code-container p.large-code {
+  font-size: 2em;
+  color: #FF3C5A77; /* Change the color of the code */
+}
+
+.error-message {
+  color: red; /* Set color to red */
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 2px;
+  text-align: center;
+}
+.material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+/* Inside your style.css file */
+.popup-message {
+  position: fixed;
+  top: 20px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 999;
+  display: none; /* Initially hidden */
+}
+
+/* In your style.css file */
+header h1 {
+  font-family: 'Black Ops One', sans-serif;
+  font-weight: normal; /* Set font weight to normal */
+}
+
+  
+    body {
+      font-family: 'Saira Condensed', sans-serif; /* Apply Saira Condensed font to all text */
+    }
+    
+    .black-ops-one-regular {
+      font-family: 'Black Ops One', sans-serif;
+      font-weight: normal;
+    }
+    
+    .database-font {
+      font-family: 'Saira Condensed', sans-serif;
+      font-weight: 600; /* Adjust font weight if needed */
+    }
+  
+
+
+
+
+
+
+
+
+
+/* Your existing CSS styles */
+/* Update the popup-container style */
+.popup-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scrolling */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Update the popup-content style */
+.popup-content {
+  background-color: white;
+  width: 100%; /* Adjust the width as needed */
+  height: 1000%; /* Adjust the height as needed */
+  margin: 0% auto; /* Center the popup */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow for depth */
+}
+
+/* Update the close button style */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+
+
+/* Other styles as needed */
+
+/* Custom styles for the database icon */
+.database-icon {
+  font-size: 16px; /* Adjust the size as needed */
+}
+
+
+
+/* Custom styles for the database icon */
+.fa-database {
+  font-weight: normal;
+  font-size: 4px; /* Adjust the size as needed */
+}
+
+
+
+  
