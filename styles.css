@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Marker+Hatch&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Marker+Hatch&display=swap')
+
+
+/* Disable text selection */
+* {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed */
+}
+
+
+/* Setting background color */
+body {
+    background-color: #F0F8FF;
+    font-family: 'Fira Code', monospace;
+    -webkit-touch-callout: none; /* Disable long press */
+    -webkit-user-select: none; /* Disable selection */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+body {
+
+}
+
+
+/* CSS for styling the containers */
+.container {
+    background-color: #F2F3F4; /* Container background color */
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    touch-action: ; /* Disable touch actions */
+}
+
+/* CSS for styling the button */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007DFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Styling for the description text */
+.description {
+    margin-bottom: 10px;
+}
+
+/* Styling for disabled links */
+.x {
+    pointer-events: none; /* Disable pointer events */
+    opacity: 0.5; /* Fade out the container */
+}
+/* Styling for disabled links */
+.x .btn {
+    background-color: #747474; /* Gray button color */
+    border: 2px solid #000000; /* Blue border */
+}
+/* Styling for disabled containers */
+/* Styling for disabled containers */
+/* Styling for disabled containers */
+/* Styling for disabled containers */
+/* Styling for disabled containers */
+.x {
+    position: relative; /* Set position to relative for watermark positioning */
+}
+
+.x::before {
+    content: "Expired"; /* Text content */
+    position: absolute; /* Position the watermark */
+    top: 0; /* Align to the top */
+    right: 0; /* Align to the right */
+    width: 100%; /* Set width to cover the entire container */
+    height: 100%; /* Set height to cover the entire container */
+    font-family: 'Rubik Marker Hatch', sans-serif; /* Use Rubik Marker Hatch font */
+    font-size: 54px; /* Font size */
+    font-weight: ; /* Bold font */
+    color: #ff0000; /* Red color */
+    opacity: 5; /* Adjust opacity */
+    pointer-events: none; /* Disable pointer events for the watermark */
+    display: flex; /* Use flexbox to center text */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    transform: rotate(-25deg); /* Rotate the text */
+    letter-spacing: 8px; 
+}
